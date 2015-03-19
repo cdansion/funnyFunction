@@ -345,7 +345,6 @@ var funnyFunction = {
             return element.currentStyle || document.defaultView.getComputedStyle(element, null);
         }
     },
-
     //基础类型判断相关
     baseType: {
     	//返回对象类型
@@ -356,5 +355,4 @@ var funnyFunction = {
 	        return obj !== undefined && obj !== null && clas === type;
 	    }
 	}  
-
 }
