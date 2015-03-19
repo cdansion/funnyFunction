@@ -41,11 +41,10 @@ var funnyFunction = {
     //字符串相关
     string: {
         url: {
-            /** 
-			/* 2015-1-13 yc   
-			/* url解析
-			/* params :String
-			/* @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
+			// 2015-1-13 yc   
+			// url解析
+			// params :String
+			// @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
 			//SAMPLE
 			// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
 			// alert(myURL.file); // = 'index.html' 
@@ -57,8 +56,7 @@ var funnyFunction = {
 			// myURL.segments; // = Array = ['dir', 'index.html'] 
 			// myURL.port; // = '8080' 
 			// myURL.protocol; // = 'http' 
-			// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top' 
-			*/
+			// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
             parse: function(url) {
                 var anchor = document.createElement('a');
                 anchor.href = url;
@@ -317,7 +315,7 @@ var funnyFunction = {
 
         //[jquery]获取element的实际大小及位置
         //params: element
-        ElementSize: function(element) {
+        elementSize: function(element) {
             if (!$(element).length) return;
             var offset = $(element).offset();
             offset.bottom = offset.top + $(element).height();
@@ -346,39 +344,17 @@ var funnyFunction = {
         get: function(element) {
             return element.currentStyle || document.defaultView.getComputedStyle(element, null);
         }
-    }
+    },
 
     //基础类型判断相关
-    baseType:{
-    	isNumber:function(s){
-    		return !isNaN(s)
-    	},
-    	isString:function(s){
-    		return typeof s ==='string';
-    	},
-    	isBoolean:function(s)
-    	{
-    		return typeof s ==='boolean';
-    	},
-    	isFunction:function(s)
-    	{
-    		return typeof s ==='funciton';
-    	},
-    	isNull:function(s)
-    	{
-    		return s===null;
-    	},
-    	isUndefined:function(s)
-    	{
-    		return typeof s ==='undefined';
-    	},
-    	isEmpty:function(s)
-    	{
-    		return /^\s*$/.test(s)/;
-    	},
-    	isArray:function(s)
-    	{
-    		return s instanceof Array;
-    	}
-    }
+    baseType: {
+    	//返回对象类型
+    	//params:"Javascript basic data types",Object
+    	//比如:is("Array",[11,22]);//true
+	    is: function(type, obj) {
+	        var clas = Object.prototype.toString.call(obj).slice(8, -1);
+	        return obj !== undefined && obj !== null && clas === type;
+	    }
+	}  
+
 }
