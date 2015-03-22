@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>funnyFunction Document</title>
+    <link rel="stylesheet" type="text/css" href="vendor/pure-min.css">
+    <script src='vendor/jquery-1.11.2.min.js'></script>
+    <script src='funnyFunction.js'></script>
+    <style type="text/css">
+    #footer,
+    #main,
+    .wrap {
+     
+    }
+    
+    .pure-button,
+    .pure-form input:not([type]) {
+        border-radius: 0
+    }
+    
+    #menu {
+        width: 160px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        background: #191818;
+        overflow-y: auto;
+    }
+	#menu .pure-menu-selected {
+	  background: #1f8dd6;
+	}
+	#layout {
+	  padding-left: 160px;
+	  left: 0;
+	}
+	.content {
+	  margin-left: auto;
+	  margin-right: auto;
+	  padding-left: 1em;
+	  padding-right: 1em;
+	  max-width: 768px;
+	}
+    </style>
+</head>
+
+<body>
+	<div id="layout">
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#" style="text-transform:none">funnyFunction</a>
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">mathDecimal</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">mathAccMul</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">stringUrlParse</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">stringUrlParam</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="main">
+		<div class="content">
+			test
+		</div>
+    </div>
+    </div>
+</body>
+
+</html>
