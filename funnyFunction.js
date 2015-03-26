@@ -41,28 +41,25 @@ var funnyFunction = {
         var num = param1 + "";
         while (re.test(num)) {
             num = num.replace(re, "$1"+s+"$2");
-        }
-        return num;
-    },
     //字符串相关
     string: {
         url: {
-            // 2015-1-13 yc   
-            // url解析
-            // params :String
-            // @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
-            //SAMPLE
-            // var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
-            // alert(myURL.file); // = 'index.html' 
-            // myURL.hash; // = 'top' 
-            // myURL.host; // = 'abc.com' 
-            // myURL.query; // = '?id=255&m=hello' 
-            // myURL.params; // = Object = { id: 255, m: hello } 
-            // myURL.path; // = '/dir/index.html' 
-            // myURL.segments; // = Array = ['dir', 'index.html'] 
-            // myURL.port; // = '8080' 
-            // myURL.protocol; // = 'http' 
-            // myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
+			// 2015-1-13 yc   
+			// url解析
+			// params :String
+			// @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
+			//SAMPLE
+			// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
+			// alert(myURL.file); // = 'index.html' 
+			// myURL.hash; // = 'top' 
+			// myURL.host; // = 'abc.com' 
+			// myURL.query; // = '?id=255&m=hello' 
+			// myURL.params; // = Object = { id: 255, m: hello } 
+			// myURL.path; // = '/dir/index.html' 
+			// myURL.segments; // = Array = ['dir', 'index.html'] 
+			// myURL.port; // = '8080' 
+			// myURL.protocol; // = 'http' 
+			// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
             parse: function(url) {
                 var anchor = document.createElement('a');
                 anchor.href = url;
@@ -205,18 +202,18 @@ var funnyFunction = {
         //返回两个日期之间的天数差
         //params:Date,Date
         diffDay: function(date1, date2) {
-            var stringToTime = function() {
-                var f = window.string.split(' ', 2);
-                var d = (f[0] ? f[0] : '').split('-', 3);
-                var t = (f[1] ? f[1] : '').split(':', 3);
-                return (new Date(
-                    parseInt(d[0], 10) || null, (parseInt(d[1], 10) || 1) - 1,
-                    parseInt(d[2], 10) || null,
-                    parseInt(t[0], 10) || null,
-                    parseInt(t[1], 10) || null,
-                    parseInt(t[2], 10) || null
-                )).getTime();
-            }
+        	var stringToTime= function(){
+        		var f = window.string.split(' ', 2);
+	            var d = (f[0] ? f[0] : '').split('-', 3);
+	            var t = (f[1] ? f[1] : '').split(':', 3);
+	            return (new Date(
+	                parseInt(d[0], 10) || null, (parseInt(d[1], 10) || 1) - 1,
+	                parseInt(d[2], 10) || null,
+	                parseInt(t[0], 10) || null,
+	                parseInt(t[1], 10) || null,
+	                parseInt(t[2], 10) || null
+	            )).getTime();
+        	}
             var type1 = typeof date1,
                 type2 = typeof date2;
             if (type1 == 'string')
@@ -251,7 +248,7 @@ var funnyFunction = {
 
     //JSON相关
     json: {
-
+        
     },
 
     //对象相关
@@ -353,12 +350,12 @@ var funnyFunction = {
     },
     //基础类型判断相关
     baseType: {
-        //返回对象类型
-        //params:"Javascript basic data types",Object
-        //比如:is("Array",[11,22]);//true
-        is: function(type, obj) {
-            var clas = Object.prototype.toString.call(obj).slice(8, -1);
-            return obj !== undefined && obj !== null && clas === type;
-        }
-    }
+    	//返回对象类型
+    	//params:"Javascript basic data types",Object
+    	//比如:is("Array",[11,22]);//true
+	    is: function(type, obj) {
+	        var clas = Object.prototype.toString.call(obj).slice(8, -1);
+	        return obj !== undefined && obj !== null && clas === type;
+	    }
+	}  
 }
