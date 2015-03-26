@@ -41,6 +41,7 @@ var funnyFunction = {
         var num = param1 + "";
         while (re.test(num)) {
             num = num.replace(re, "$1"+s+"$2");
+        }
     },
     //字符串相关
     string: {
