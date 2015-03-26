@@ -9,36 +9,41 @@ var funnyFunction = {
 	    var vv = Math.pow(10, param2);
         return Math.round(param1 * vv) / vv;
 	},
-    //数字相关
-    math: {
-        //精确相乘
-        //params:Number,Number
-        accMul: function(arg1, arg2) {
-            var m = 0,
-                s1 = arg1.toString(),
-                s2 = arg2.toString();
-            try {
-                m += s1.split(".")[1].length
-            } catch (e) {}
-            try {
-                m += s2.split(".")[1].length
-            } catch (e) {}
-            return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
-        },
-
-        //千位分隔符
-        //params:String
-        //返回:123,456,789
-        milliDivision: function(s) {
-            var num = s + "";
-            var re = /(-?\d+)(\d{3})/;
-            while (re.test(num)) {
-                num = num.replace(re, "$1,$2");
-            }
-            return num;
-        }
+    /**
+     * 精确相乘
+     * @param1 {Number} 数字
+     * @param2 {Number} 数字
+     * @return {Number}
+     */
+    mathAccMul:function(param1,param2){
+        var m = 0,
+            s1 = param1.toString(),
+            s2 = param2.toString();
+        try {
+            m += s1.split(".")[1].length
+        } catch (e) {}
+        try {
+            m += s2.split(".")[1].length
+        } catch (e) {}
+        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
     },
-
+    /**
+     * 给数字|字符串加上符号
+     * @param1 {Number} 数字
+     * @param2 {String} 符号 默认:','
+     * @param3 {Number} 保留的位数 默认:3
+     * @return {String}
+     */
+    commonAddSymbol:function(param1,param2,param3){
+        var s = param2 || ',';
+        var p = param3 || 3 ;
+        var re = new RegExp('(-?\\d+)(\\d{'+ p +'})','');
+        var num = param1 + "";
+        while (re.test(num)) {
+            num = num.replace(re, "$1"+s+"$2");
+        }
+        return num;
+    },
     //字符串相关
     string: {
         url: {

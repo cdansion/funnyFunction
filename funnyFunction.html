@@ -5,73 +5,79 @@
     <meta charset="UTF-8">
     <title>funnyFunction Document</title>
     <link rel="stylesheet" type="text/css" href="vendor/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="funnyFunction.css">
     <script src='vendor/jquery-1.11.2.min.js'></script>
     <script src='funnyFunction.js'></script>
-    <style type="text/css">
-    #footer,
-    #main,
-    .wrap {
-     
-    }
-    
-    .pure-button,
-    .pure-form input:not([type]) {
-        border-radius: 0
-    }
-    
-    #menu {
-        width: 160px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        z-index: 1000;
-        background: #191818;
-        overflow-y: auto;
-    }
-	#menu .pure-menu-selected {
-	  background: #1f8dd6;
-	}
-	#layout {
-	  padding-left: 160px;
-	  left: 0;
-	}
-	.content {
-	  margin-left: auto;
-	  margin-right: auto;
-	  padding-left: 1em;
-	  padding-right: 1em;
-	  max-width: 768px;
-	}
-    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.pure-menu-list').delegate('li', 'click', function(event) {
+                $('.pure-menu-selected').removeClass('pure-menu-selected');
+                $(this).addClass('pure-menu-selected');
+            });
+        });
+    </script>
 </head>
 
 <body>
-	<div id="layout">
-    <div id="menu">
-        <div class="pure-menu">
-            <a class="pure-menu-heading" href="#" style="text-transform:none">funnyFunction</a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">mathDecimal</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">mathAccMul</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">stringUrlParse</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">stringUrlParam</a>
-                </li>
-            </ul>
+    <div id="layout">
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="#ff" style="text-transform:none">funnyFunction</a>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                        <a href="#mathDecimal" class="pure-menu-link">mathDecimal</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#mathAccMul" class="pure-menu-link">mathAccMul</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#commonAddSymbol" class="pure-menu-link">commonAddSymbol</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#stringUrlParse" class="pure-menu-link">stringUrlParse</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#stringUrlParam" class="pure-menu-link">stringUrlParam</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div id="main">
-		<div class="content">
-			test
-		</div>
-    </div>
+        <div id="main">
+            <div class="content">
+                <h1 id="ff">funnyFunction</h1>
+                <div class="fnwrap" id="mathDecimal">
+                    <h2 class="name">mathDecimal</h2>
+                    <p class="dest">四舍五入</h3>
+                    <p class="fullname">funnyFunction.mathDecimal(param1,param2)</p>
+                    <h3 class="title1">参数</h3>
+                    <p class="paramdest">param1 {Number} 需要四舍五入的数字</p>
+                    <p class="paramdest">param2 {Number} 保留的位数</p>
+                    <h3 class="title2">返回</h3>
+                    <p class="return">{Number}</p>
+                </div>
+                <div class="fnwrap" id="mathAccMul">
+                    <h2 class="name">mathAccMul</h2>
+                    <p class="dest">精确相乘</h3>
+                    <p class="fullname">funnyFunction.mathAccMul(param1,param2)</p>
+                    <h3 class="title1">参数</h3>
+                    <p class="paramdest">param1 {Number}</p>
+                    <p class="paramdest">param2 {Number}</p>
+                    <h3 class="title2">返回</h3>
+                    <p class="return">{Number}</p>
+                </div>
+                <div class="fnwrap" id="commonAddSymbol">
+                    <h2 class="name">commonAddSymbol</h2>
+                    <p class="fullname">funnyFunction.commonAddSymbol(param1,param2,param3)</p>
+                    <p class="dest">给数字|字符串加上符号</h3>
+                    <h3 class="title1">参数</h3>
+                    <p class="paramdest">param1 {Number|String} 数字|字符串</p>
+                    <p class="paramdest">param1 {Number} 符号 默认:','</p>
+                    <p class="paramdest">param1 {Number} 保留的位数 默认:3</p>
+                    <h3 class="title2">返回</h3>
+                    <p class="return">{String}</p>  
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

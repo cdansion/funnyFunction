@@ -1,0 +1,80 @@
+body {
+  background: #fff;
+  font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+}
+
+.pure-button,
+.pure-form input:not([type]) {
+    border-radius: 0
+}
+
+#menu {
+    width: 170px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: #191818;
+    overflow-y: auto;
+}
+
+#menu .pure-menu-selected {
+    background: #1f8dd6;
+}
+
+#layout {
+    padding-left: 170px;
+    left: 0;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    max-width: 768px;
+}
+
+.fnwrap {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+.fnwrap .dest{
+   
+}
+.fnwrap .name {
+    background: #1f8dd6;
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+
+#menu a {
+    color: #999;
+    border: none;
+    white-space: normal;
+    padding: 0.625em 1em;
+}
+
+#menu a:hover {
+    background: #1f8dd6;
+    color: #fff;
+}
+
+#menu .pure-menu-selected {
+    background: #1f8dd6;
+}
+
+#menu .pure-menu-selected a {
+    color: #fff;
+}
+
+.pure-menu-selected .pure-menu-link,
+.pure-menu-selected .pure-menu-link:visited {
+    background: #1f8dd6;
+    color: #fff;
+}
