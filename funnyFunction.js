@@ -1,16 +1,17 @@
 var funnyFunction = {
 	/**
-	 * 四舍五入
+	 * 数字-四舍五入
 	 * @param1 {Number} 需要四舍五入的数字
 	 * @param2 {Number} 保留的位数
 	 * @return {Number}
 	 */
-	mathDecimal:function(param1,param2){
+	mathRound:function(param1,param2){
+        param2 = param2 || 0;
 	    var vv = Math.pow(10, param2);
         return Math.round(param1 * vv) / vv;
 	},
     /**
-     * 精确相乘
+     * 数字-精确相乘
      * @param1 {Number} 数字
      * @param2 {Number} 数字
      * @return {Number}
@@ -20,15 +21,15 @@ var funnyFunction = {
             s1 = param1.toString(),
             s2 = param2.toString();
         try {
-            m += s1.split(".")[1].length
+            m += s1.split(".")[1].length;
         } catch (e) {}
         try {
-            m += s2.split(".")[1].length
+            m += s2.split(".")[1].length;
         } catch (e) {}
-        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
     },
     /**
-     * 给数字|字符串加上符号
+     * 通用-给数字|字符串加上符号
      * @param1 {Number} 数字
      * @param2 {String} 符号 默认:','
      * @param3 {Number} 保留的位数 默认:3
@@ -37,73 +38,83 @@ var funnyFunction = {
     commonAddSymbol:function(param1,param2,param3){
         var s = param2 || ',';
         var p = param3 || 3 ;
+        if(s==='$'){
+            return param1;
+        }
         var re = new RegExp('(-?\\d+)(\\d{'+ p +'})','');
         var num = param1 + "";
         while (re.test(num)) {
             num = num.replace(re, "$1"+s+"$2");
         }
+        return num;
     },
     /**
-     * 获取当前url参数
+     * 字符串-获取当前url参数
      * @param1 {String}
      * @return {String}
      */       
     stringUrlParam:function(param1){
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg = new RegExp("(^|&)" + param1 + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return window.unescape(r[2]);
         return null;
     },
+    // 2015-1-13 yc   
+    // url解析
+    // params :String
+    // @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
+    //SAMPLE
+    // var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
+    // alert(myURL.file); // = 'index.html' 
+    // myURL.hash; // = 'top' 
+    // myURL.host; // = 'abc.com' 
+    // myURL.query; // = '?id=255&m=hello' 
+    // myURL.params; // = Object = { id: 255, m: hello } 
+    // myURL.path; // = '/dir/index.html' 
+    // myURL.segments; // = Array = ['dir', 'index.html'] 
+    // myURL.port; // = '8080' 
+    // myURL.protocol; // = 'http' 
+    // myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
+    /**
+     * 2015-1-13 yc
+     * 字符串-url解析
+     * @param1 {String}
+     * @return {Object}
+     */ 
+    stringUrlParse:function(param1){
+        var anchor = document.createElement('a');
+        anchor.href = param1;
+        return {
+            source: param1,
+            protocol: anchor.protocol.replace(':', ''),
+            host: anchor.hostname,
+            port: anchor.port,
+            query: anchor.search,
+            params: (function() {
+                var ret = {},
+                    seg = anchor.search.replace(/^\?/, '').split('&'),
+                    len = seg.length,
+                    i = 0,
+                    str;
+                for (; i < len; i++) {
+                    if (!seg[i]) {
+                        continue;
+                    }
+                    str = seg[i].split('=');
+                    ret[str[0]] = str[1];
+                }
+                return ret;
+            })(),
+            file: (anchor.pathname.match(/\/([^\/?#]+)$/i) || [, ''])[1],
+            hash: anchor.hash.replace('#', ''),
+            path: anchor.pathname.replace(/^([^\/])/, '/$1'),
+            relative: (anchor.href.match(/tps?:\/\/[^\/]+(.+)/) || [, ''])[1],
+            segments: anchor.pathname.replace(/^\//, '').split('/')
+        };
+    },
     //字符串相关
     string: {
         url: {
-			// 2015-1-13 yc   
-			// url解析
-			// params :String
-			// @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
-			//SAMPLE
-			// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
-			// alert(myURL.file); // = 'index.html' 
-			// myURL.hash; // = 'top' 
-			// myURL.host; // = 'abc.com' 
-			// myURL.query; // = '?id=255&m=hello' 
-			// myURL.params; // = Object = { id: 255, m: hello } 
-			// myURL.path; // = '/dir/index.html' 
-			// myURL.segments; // = Array = ['dir', 'index.html'] 
-			// myURL.port; // = '8080' 
-			// myURL.protocol; // = 'http' 
-			// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
-            parse: function(url) {
-                var anchor = document.createElement('a');
-                anchor.href = url;
-                return {
-                    source: url,
-                    protocol: anchor.protocol.replace(':', ''),
-                    host: anchor.hostname,
-                    port: anchor.port,
-                    query: anchor.search,
-                    params: (function() {
-                        var ret = {},
-                            seg = anchor.search.replace(/^\?/, '').split('&'),
-                            len = seg.length,
-                            i = 0,
-                            str;
-                        for (; i < len; i++) {
-                            if (!seg[i]) {
-                                continue;
-                            }
-                            str = seg[i].split('=');
-                            ret[str[0]] = str[1];
-                        }
-                        return ret;
-                    })(),
-                    file: (anchor.pathname.match(/\/([^\/?#]+)$/i) || [, ''])[1],
-                    hash: anchor.hash.replace('#', ''),
-                    path: anchor.pathname.replace(/^([^\/])/, '/$1'),
-                    relative: (anchor.href.match(/tps?:\/\/[^\/]+(.+)/) || [, ''])[1],
-                    segments: anchor.pathname.replace(/^\//, '').split('/')
-                };
-            },
             //返回当前url完整路口
             fullPath: function() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;

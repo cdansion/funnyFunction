@@ -6,15 +6,39 @@
     <title>funnyFunction Document</title>
     <link rel="stylesheet" type="text/css" href="vendor/pure-min.css">
     <link rel="stylesheet" type="text/css" href="funnyFunction.css">
+    <link rel="stylesheet" type="text/css" href="vendor/highlight/monokai_sublime.css">
     <script src='vendor/jquery-1.11.2.min.js'></script>
     <script src='funnyFunction.js'></script>
-    <script src='funnyFunction-dest.js'></script>
+    <script src='funnyFunction-tmpl.js'></script>
+    
     <script type="text/javascript" src="vendor/doT.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.pure-menu-list').delegate('li', 'click', function(event) {
                 $('.pure-menu-selected').removeClass('pure-menu-selected');
                 $(this).addClass('pure-menu-selected');
+            });
+
+            $('.fnExample').delegate('button', 'click', function(event) {
+               var $this= $(this);
+               var run= $this.data('run');
+               var runIndex =$this.data('runindex');
+               var showType =$("."+run+'showType').eq(runIndex).val();
+               var html='';
+               if(showType===undefined)
+               {
+                  alert(eval($("."+run+'Run').eq(runIndex).val()));
+               }
+               else{
+                  $this.parent().find('.showType').remove();
+                  var runResult =eval($("."+run+'Run').eq(runIndex).val());
+                  if(funnyFunction.baseType.is("Object"),runResult)
+                  {
+                     var obj = funnyFunction.string.objectToStr(runResult);
+                     obj = obj.replace(/\,/ig,',\r\n').replace(/\{/ig,'\{\r\n').replace(/\}\w?/ig,'\r\n\}');
+                     $this.before('<div class="showType"><pre><code class="html hljs">'+obj+'</code></pre></div>');
+                  }
+               }
             });
         });
     </script>
@@ -25,73 +49,27 @@
         <div id="menu">
             <div class="pure-menu">
                 <a class="pure-menu-heading" href="#ff" style="text-transform:none">funnyFunction</a>
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item">
-                        <a href="#mathDecimal" class="pure-menu-link">mathDecimal</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#mathAccMul" class="pure-menu-link">mathAccMul</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#commonAddSymbol" class="pure-menu-link">commonAddSymbol</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#stringUrlParse" class="pure-menu-link">stringUrlParse</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#stringUrlParam" class="pure-menu-link">stringUrlParam</a>
-                    </li>
+                <ul class="pure-menu-list" id="menuList">
                 </ul>
             </div>
         </div>
         <div id="main">
-            <div class="content">
-                <h1 id="ff">funnyFunction</h1>
-                <!--  <div class="fnwrap" id="mathDecimal">
-                    <h2 class="name">mathDecimal</h2>
-                    <p class="dest">四舍五入</h3>
-                    <p class="fullname">funnyFunction.mathDecimal(param1,param2)</p>
-                    <h3 class="title1">参数</h3>
-                    <p class="paramdest">param1 {Number} 需要四舍五入的数字</p>
-                    <p class="paramdest">param2 {Number} 保留的位数</p>
-                    <h3 class="title2">返回</h3>
-                    <p class="return">{Number}</p>
-                </div>
-                <div class="fnwrap" id="mathAccMul">
-                    <h2 class="name">mathAccMul</h2>
-                    <p class="dest">精确相乘</h3>
-                    <p class="fullname">funnyFunction.mathAccMul(param1,param2)</p>
-                    <h3 class="title1">参数</h3>
-                    <p class="paramdest">param1 {Number}</p>
-                    <p class="paramdest">param2 {Number}</p>
-                    <h3 class="title2">返回</h3>
-                    <p class="return">{Number}</p>
-                </div>
-                <div class="fnwrap" id="commonAddSymbol">
-                    <h2 class="name">commonAddSymbol</h2>
-                    <p class="fullname">funnyFunction.commonAddSymbol(param1,param2,param3)</p>
-                    <p class="dest">给数字|字符串加上符号</h3>
-                    <h3 class="title1">参数</h3>
-                    <p class="paramdest">param1 {Number|String} 数字|字符串</p>
-                    <p class="paramdest">param2 {Number} 符号 默认:','</p>
-                    <p class="paramdest">param3 {Number} 保留的位数 默认:3</p>
-                    <h3 class="title2">返回</h3>
-                    <p class="return">{String}</p>  
-                </div>
-                <div class="fnwrap" id="stringUrlParam">
-                    <h2 class="name">stringUrlParam</h2>
-                    <p class="fullname">funnyFunction.stringUrlParam(param1) </p>
-                    <p class="dest">获取当前url参数 <a class="pure-button pure-button-primary" href="#">运行</a></h3>
-                    <h3 class="title1">参数</h3>
-                    <p class="paramdest">param1 {String}</p>
-                    <h3 class="title2">返回</h3>
-                    <p class="return">{String}</p>  
-                </div> -->
+            <div class="content" id="content">
             </div>
-            <script id="funnytmpl" type="text/x-dot-template">
+            <script id="funnyMenuTmpl" type="text/x-dot-template">
+                {{ for(var objs in it) { }}
+                <li class="pure-menu-item">
+                    <a href="#{{=objs}}" class="pure-menu-link">{{=objs}}</a>
+                </li> 
+                {{ } }}
+            </script>
+            <script id="funnyContentTmpl" type="text/x-dot-template">
+                  <h1 id="ff">funnyFunction</h1>
                   {{ for(var objs in it) { }}
                     <div class="fnwrap" id={{=objs}}>
-                        <h2 class="name">{{=objs}}</h2>
+                        <div class="btnwrap">
+                            <h2 class="name">{{=objs}}</h2>
+                        </div>
                         {{ for(var obj in it[objs]) { }} 
                            {{if(obj === "name"){ }}
                                 <h2 class="name">{{=it[objs][obj]}}</h2>
@@ -111,18 +89,50 @@
                                 <p>{{=it[objs][obj][param]}}</p>
                                 {{ } }} 
                            {{ } }} 
+
                            {{if(obj === "treturn"){ }}
                                 <h3 class="title2">返回</h3>
                                 <p class="return">{{=it[objs][obj]}}</p>
                            {{ } }} 
+
+                           {{if(obj === "viewCode"){ }}
+                                {{ for(var videCode in it[objs][obj]) { }}
+                                    <div class="fnExample">
+                                        <h3 class="title3">示例</h3>
+                                        <pre>
+                                            <code class="javascript hljs">
+                                                {{=it[objs][obj][videCode]}}
+                                            </code>
+                                        </pre>
+                                        <button data-run="{{=objs}}" data-runIndex="{{=videCode}}" class="button-secondary pure-button">运行</button>
+                                    </div>
+                                {{ } }} 
+                           {{ } }} 
+
+
+                           {{if(obj === "showType"){ }}
+                                {{ for(var showtype in it[objs][obj]) { }}
+                                     <input type="hidden" class="{{=objs}}showType" value="{{=it[objs][obj][showtype]}}"></input>
+                                {{ } }} 
+                           {{ } }}
+
+
+                           {{if(obj === "run"){ }}
+                                {{ for(var run in it[objs][obj]) { }}
+                                     <input type="hidden" class="{{=objs}}Run" value="{{=it[objs][obj][run]}}"></input>
+                                {{ } }} 
+                           {{ } }} 
+
                         {{ } }}
                     </div>
                   {{ } }}
             </script>
             <script type="text/javascript">
-                 var tempFn = doT.template(document.getElementById('funnytmpl').text);
-                 var resultText = tempFn(funnyFunctionDest);
-                 $(".content").html(resultText);
+                var menuTmpl = doT.template(document.getElementById('funnyMenuTmpl').text);
+                $("#menuList").html(menuTmpl(funnyContentTmpl));
+
+                var contentTmpl = doT.template(document.getElementById('funnyContentTmpl').text);
+                $("#content").html(contentTmpl(funnyContentTmpl));
             </script>
         </div>
     </div>

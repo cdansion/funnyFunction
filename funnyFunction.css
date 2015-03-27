@@ -8,7 +8,12 @@ body {
 
 .pure-button,
 .pure-form input:not([type]) {
-    border-radius: 0
+    border-radius: 0;
+}
+
+.pure-button
+{
+    border:1px solid #999;
 }
 
 #menu {
@@ -36,7 +41,7 @@ body {
     margin-right: auto;
     padding-left: 1em;
     padding-right: 1em;
-    max-width: 768px;
+    max-width: 850px;
 }
 
 .fnwrap {
@@ -44,13 +49,19 @@ body {
     margin-bottom: 20px;
 }
 .fnwrap .dest{
-   
+    color: #FF0000;
+    font-size: 1.25em;
+    font-weight: 600; 
 }
 .fnwrap .name {
     background: #1f8dd6;
     padding: 0.3em 1em;
     border-radius: 3px;
     color: #fff;
+}
+
+.fnwrap .showType,button{
+    margin-bottom: 20px;
 }
 
 #menu a {
