@@ -43,6 +43,17 @@ var funnyFunction = {
             num = num.replace(re, "$1"+s+"$2");
         }
     },
+    /**
+     * 获取当前url参数
+     * @param1 {String}
+     * @return {String}
+     */       
+    stringUrlParam:function(param1){
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return window.unescape(r[2]);
+        return null;
+    },
     //字符串相关
     string: {
         url: {
@@ -93,16 +104,6 @@ var funnyFunction = {
                     segments: anchor.pathname.replace(/^\//, '').split('/')
                 };
             },
-
-            //返回当前url参数
-            //params:String
-            param: function(name) {
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                var r = window.location.search.substr(1).match(reg);
-                if (r != null) return window.unescape(r[2]);
-                return null;
-            },
-
             //返回当前url完整路口
             fullPath: function() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;

@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="funnyFunction.css">
     <script src='vendor/jquery-1.11.2.min.js'></script>
     <script src='funnyFunction.js'></script>
+    <script src='funnyFunction-dest.js'></script>
+    <script type="text/javascript" src="vendor/doT.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.pure-menu-list').delegate('li', 'click', function(event) {
@@ -45,7 +47,7 @@
         <div id="main">
             <div class="content">
                 <h1 id="ff">funnyFunction</h1>
-                <div class="fnwrap" id="mathDecimal">
+                <!--  <div class="fnwrap" id="mathDecimal">
                     <h2 class="name">mathDecimal</h2>
                     <p class="dest">四舍五入</h3>
                     <p class="fullname">funnyFunction.mathDecimal(param1,param2)</p>
@@ -71,12 +73,57 @@
                     <p class="dest">给数字|字符串加上符号</h3>
                     <h3 class="title1">参数</h3>
                     <p class="paramdest">param1 {Number|String} 数字|字符串</p>
-                    <p class="paramdest">param1 {Number} 符号 默认:','</p>
-                    <p class="paramdest">param1 {Number} 保留的位数 默认:3</p>
+                    <p class="paramdest">param2 {Number} 符号 默认:','</p>
+                    <p class="paramdest">param3 {Number} 保留的位数 默认:3</p>
                     <h3 class="title2">返回</h3>
                     <p class="return">{String}</p>  
                 </div>
+                <div class="fnwrap" id="stringUrlParam">
+                    <h2 class="name">stringUrlParam</h2>
+                    <p class="fullname">funnyFunction.stringUrlParam(param1) </p>
+                    <p class="dest">获取当前url参数 <a class="pure-button pure-button-primary" href="#">运行</a></h3>
+                    <h3 class="title1">参数</h3>
+                    <p class="paramdest">param1 {String}</p>
+                    <h3 class="title2">返回</h3>
+                    <p class="return">{String}</p>  
+                </div> -->
             </div>
+            <script id="funnytmpl" type="text/x-dot-template">
+                  {{ for(var objs in it) { }}
+                    <div class="fnwrap" id={{=objs}}>
+                        <h2 class="name">{{=objs}}</h2>
+                        {{ for(var obj in it[objs]) { }} 
+                           {{if(obj === "name"){ }}
+                                <h2 class="name">{{=it[objs][obj]}}</h2>
+                           {{ } }}
+
+                           {{if(obj === "fullname"){ }}
+                                <p class="fullname">{{=it[objs][obj]}}</p>
+                           {{ } }}
+
+                           {{if(obj === "dest"){ }}
+                                <p class="dest">{{=it[objs][obj]}}</p>
+                           {{ } }}  
+
+                           {{if(obj === "paramdest"){ }}
+                                <h3 class="title1">参数</h3>
+                                {{ for(var param in it[objs][obj]) { }}
+                                <p>{{=it[objs][obj][param]}}</p>
+                                {{ } }} 
+                           {{ } }} 
+                           {{if(obj === "treturn"){ }}
+                                <h3 class="title2">返回</h3>
+                                <p class="return">{{=it[objs][obj]}}</p>
+                           {{ } }} 
+                        {{ } }}
+                    </div>
+                  {{ } }}
+            </script>
+            <script type="text/javascript">
+                 var tempFn = doT.template(document.getElementById('funnytmpl').text);
+                 var resultText = tempFn(funnyFunctionDest);
+                 $(".content").html(resultText);
+            </script>
         </div>
     </div>
 </body>
