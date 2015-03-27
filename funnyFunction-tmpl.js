@@ -18,7 +18,7 @@ var funnyContentTmpl = {
     "commonAddSymbol":{
     	"dest":'通用-给数字|字符串加上符号',
 	    "fullname": 'funnyFunction.commonAddSymbol(param1,param2,param3)',
-	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:','param3 {Number} 保留的位数 默认:3'],
+	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 保留的位数 默认:3'],
 	    "treturn":'{String}',
 	    "viewCode":["funnyFunction.commonAddSymbol(123456789);","funnyFunction.commonAddSymbol(123456789,'#',2);"],
 	    "run":['funnyFunction.commonAddSymbol(123456789);',"funnyFunction.commonAddSymbol(123456789,'#',2);"]
