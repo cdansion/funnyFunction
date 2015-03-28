@@ -61,7 +61,7 @@ var funnyContentTmpl = {
 	    "paramdest": ['param1 {Object}'],
 	    "treturn":'{String}',
 	    "viewCode":['funnyFunction.convertObjectToString({name:"ccw",age:18});'],
-	    "run":['funnyFunction.convertObjectToString({name:\"ccw\",age:18});'],
+	    "run":['funnyFunction.convertObjectToString({name:\'ccw\',age:18});'],
     },
     "isObjectType":{
     	"dest":'判断-javascript对象类型',
