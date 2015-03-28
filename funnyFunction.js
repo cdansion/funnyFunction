@@ -56,14 +56,14 @@ var funnyFunction = {
     stringUrlParam:function(param1){
         var reg = new RegExp("(^|&)" + param1 + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
-        if (r != null) return window.unescape(r[2]);
+        if (r !== null) return window.unescape(r[2]);
         return null;
     },
     // 2015-1-13 yc   
     // url解析
     // params :String
     // @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
-    //SAMPLE
+    // SAMPLE
     // var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
     // alert(myURL.file); // = 'index.html' 
     // myURL.hash; // = 'top' 
@@ -112,56 +112,87 @@ var funnyFunction = {
             segments: anchor.pathname.replace(/^\//, '').split('/')
         };
     },
+    /**
+     * 字符串-获得当前url完整路口
+     * @return {String}
+     */ 
+    stringUrlFullPath:function(){
+        return window.location.protocol + "//" + window.location.host + window.location.pathname;
+    },
+
+    /**
+     * 字符串-获得字符串（中英文）变量的长度
+     * @param1 {String}
+     * @param2 {Boolean}
+     * @return {String}
+     */
+    stringLen: function(param1,param2) {
+        var len = 0;
+        var isCn = true;
+        if(param2 !== undefined)
+        {
+            isCn= param2;
+        }
+        for (var i = 0; i < param1.length; i++) {
+            var c = param1.charCodeAt(i);
+            //单字节加1 
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                len++;
+            }
+            else if(isCn){
+                len += 2;
+            }
+            else{
+                len += 1;
+            }
+        }
+        return len;
+    },
+
+    /**
+     * 转换-将对象转换为字符串
+     * @return {String}
+     */ 
+    convertObjectToString:function(o){
+        var
+            str = (function obj2str(o) {
+                var r = [];
+                if (typeof o == "string" || o === null) {
+                    return o;
+                }
+                if (typeof o == "object") {
+                    if (!o.sort) {
+                        r[0] = "{";
+                        for (var i in o) {
+                            r[r.length] = i;
+                            r[r.length] = ":";
+                            if (typeof o[i] == 'object' && o[i].top && o[i].window && o[i].location) {
+                                r[r.length] = "ve";
+                            } else {
+                                r[r.length] = obj2str(o[i]);
+                            }
+                            r[r.length] = ",";
+                        }
+                        if (r.length > 1) r[r.length - 1] = "}";
+                        else r[r.length] = "}";
+                    } else {
+                        r[0] = "[";
+                            // alert(o.length);
+                        for (var i = 0; i < o.length; i++) {
+                            r[r.length] = obj2str(o[i]);
+                            r[r.length] = ",";
+                        }
+                        if (r.length > 1) r[r.length - 1] = "]";
+                        else r[r.length] = "]";
+                    }
+                    return r.join("");
+                }
+                return o.toString();
+            })(o);
+        return str.replace(/[\r\n]/g, '');
+    },
     //字符串相关
     string: {
-        url: {
-            //返回当前url完整路口
-            fullPath: function() {
-                return window.location.protocol + "//" + window.location.host + window.location.pathname;
-            }
-        },
-
-        //对象转换成字符串
-        //params: JSON Object
-        objectToStr: function(o) {
-            var
-                str = (function obj2str(o) {
-                    var r = [];
-                    if (typeof o == "string" || o == null) {
-                        return o;
-                    }
-                    if (typeof o == "object") {
-                        if (!o.sort) {
-                            r[0] = "{"
-                            for (var i in o) {
-                                r[r.length] = i;
-                                r[r.length] = ":";
-                                if (typeof o[i] == 'object' && o[i].top && o[i].window && o[i].location) {
-                                    r[r.length] = "ve";
-                                } else {
-                                    r[r.length] = obj2str(o[i]);
-                                }
-                                r[r.length] = ",";
-                            }
-                            if (r.length > 1) r[r.length - 1] = "}";
-                            else r[r.length] = "}";
-                        } else {
-                            r[0] = "["
-                                // alert(o.length);
-                            for (var i = 0; i < o.length; i++) {
-                                r[r.length] = obj2str(o[i]);
-                                r[r.length] = ",";
-                            }
-                            if (r.length > 1) r[r.length - 1] = "]";
-                            else r[r.length] = "]";
-                        }
-                        return r.join("");
-                    }
-                    return o.toString();
-                })(o);
-            return str.replace(/[\r\n]/g, '');
-        },
-
         //根据字符串计算hash数值
         hash: function(a) {
             var b, c = 1,
@@ -169,13 +200,7 @@ var funnyFunction = {
             if (!this.IsEmpty(a))
                 for (c = 0, b = a.length - 1; b >= 0; b--)
                     d = a.charCodeAt(b), c = (c << 6 & 268435455) + d + (d << 14), d = 266338304 & c, c = 0 != d ? c ^ d >> 21 : c;
-            return c
-        },
-
-        //返回计算字符串（中英文）变量的长度
-        //params:String
-        len: function(str) {
-            return str.replace(/[^\x00-\xff]/g, "aaa").length;
+            return c;
         },
 
         //截取定长字符串 包含中文处理  
@@ -242,22 +267,23 @@ var funnyFunction = {
         }
     },
 
-    //数组相关
-    array: {
-        //去重
-        unique: function() {
-            var ret = [];
-            var hash = {};
-            for (var i = 0; i < arr.length; i++) {
-                var item = arr[i];
-                var key = typeof(item) + item;
-                if (hash[key] !== 1) {
-                    ret.push(item);
-                    hash[key] = 1;
-                }
+    /**
+     * 数组-去重
+     * @param1 {Array} 
+     * @return {Array}
+     */
+    arrayUnique:function(param1){
+        var ret = [];
+        var hash = {};
+        for (var i = 0; i < param1.length; i++) {
+            var item = param1[i];
+            var key = typeof(item) + item;
+            if (hash[key] !== 1) {
+                ret.push(item);
+                hash[key] = 1;
             }
-            return ret;
         }
+        return ret;
     },
 
     //JSON相关
@@ -362,14 +388,13 @@ var funnyFunction = {
             return element.currentStyle || document.defaultView.getComputedStyle(element, null);
         }
     },
-    //基础类型判断相关
-    baseType: {
-    	//返回对象类型
-    	//params:"Javascript basic data types",Object
-    	//比如:is("Array",[11,22]);//true
-	    is: function(type, obj) {
-	        var clas = Object.prototype.toString.call(obj).slice(8, -1);
-	        return obj !== undefined && obj !== null && clas === type;
-	    }
-	}  
-}
+    /**
+     * 判断-javascript对象类型
+     * @param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....
+     * @param2 {Object}
+     * @return {Boolean}
+     */
+    isObjectType:function(type, obj){
+        return toString.call(obj).indexOf('[object ' + type) == 0;
+    }  
+};

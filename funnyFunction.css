@@ -17,7 +17,7 @@ body {
 }
 
 #menu {
-    width: 170px;
+    width: 200px;
     position: fixed;
     top: 0;
     left: 0;
@@ -32,7 +32,7 @@ body {
 }
 
 #layout {
-    padding-left: 170px;
+    padding-left: 200px;
     left: 0;
 }
 

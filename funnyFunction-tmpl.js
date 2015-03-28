@@ -23,6 +23,14 @@ var funnyContentTmpl = {
 	    "viewCode":["funnyFunction.commonAddSymbol(123456789);","funnyFunction.commonAddSymbol(123456789,'#',2);"],
 	    "run":['funnyFunction.commonAddSymbol(123456789);',"funnyFunction.commonAddSymbol(123456789,'#',2);"]
     },
+    "stringLen":{
+    	"dest":'字符串-获得字符串（中英文）变量的长度',
+	    "fullname": 'funnyFunction.stringLen(param1,param2)',
+	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是否算1个字节,否则算2个字节 默认:true'],
+	    "treturn":'{String}',
+	    "viewCode":['funnyFunction.stringLen(\'123456789中文\');','funnyFunction.stringLen(\'123456789中文\',false);'],
+	    "run":['funnyFunction.stringLen(\'123456789中文\');','funnyFunction.stringLen(\'123456789中文\',false);'],
+    },
     "stringUrlParam":{
     	"dest":'字符串-获取当前url参数',
 	    "fullname": 'funnyFunction.stringUrlParam(param1)',
@@ -39,7 +47,36 @@ var funnyContentTmpl = {
 	    "viewCode":["funnyFunction.stringUrlParse('https://github.com/chenchangwen/funnyFunction?f=1&b=2');"],
 	    "run":["funnyFunction.stringUrlParse('https://github.com/chenchangwen/funnyFunction?f=1&b=2');"],
 	    "showType":['dom']
-    }
+    },
+    "stringUrlFullPath":{
+    	"dest":'字符串-获得当前url完整路口',
+	    "fullname": 'funnyFunction.stringUrlFullPath()',
+	    "treturn":'{String}',
+	    "viewCode":["funnyFunction.stringUrlFullPath();"],
+	    "run":["funnyFunction.stringUrlFullPath();"]
+    },
+    "convertObjectToString":{
+    	"dest":'转换-将对象转换为字符串',
+	    "fullname": 'funnyFunction.convertObjectToString(param1)',
+	    "paramdest": ['param1 {Object}'],
+	    "treturn":'{String}',
+	    "viewCode":['funnyFunction.convertObjectToString({name:"ccw",age:18});'],
+	    "run":['funnyFunction.convertObjectToString({name:\"ccw\",age:18});'],
+    },
+    "isObjectType":{
+    	"dest":'判断-javascript对象类型',
+	    "fullname": 'funnyFunction.isObjectType(param1)',
+	    "paramdest": ['param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....','param2 {Object}',],
+	    "treturn":'{String}',
+	    "viewCode":['funnyFunction.isObjectType("Object",{name:"ccw",age:18});','funnyFunction.isObjectType("Array",[1,2,3,4]);','funnyFunction.isObjectType("Date",new Date());'],
+	    "run":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18});','funnyFunction.isObjectType(\'Array\',[1,2,3,4]);','funnyFunction.isObjectType(\'Date\',new Date());'],
+    },
+    "arrayUnique":{
+    	"dest":'数组-去重',
+	    "fullname": 'funnyFunction.arrayUnique()',
+	    "paramdest": ['param1 {Array}'],
+	    "treturn":'{String}',
+	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]);'],
+	    "run":['funnyFunction.arrayUnique([11,22,11,22]);'],
+    }     
 };
-
-
