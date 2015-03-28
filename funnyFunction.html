@@ -32,7 +32,7 @@
                else{
                   $this.parent().find('.showType').remove();
                   var runResult =eval($("."+run+'Run').eq(runIndex).val());
-                  if(funnyFunction.baseType.is("Object"),runResult)
+                  if(funnyFunction.isObjectType("Object"),runResult)
                   {
                      var obj = funnyFunction.convertObjectToString(runResult);
                      obj = obj.replace(/\,/ig,',\r\n').replace(/\{/ig,'\{\r\n').replace(/\}\w?/ig,'\r\n\}');
