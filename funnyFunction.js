@@ -59,22 +59,6 @@ var funnyFunction = {
         if (r !== null) return window.unescape(r[2]);
         return null;
     },
-    // 2015-1-13 yc   
-    // url解析
-    // params :String
-    // @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
-    // SAMPLE
-    // var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
-    // alert(myURL.file); // = 'index.html' 
-    // myURL.hash; // = 'top' 
-    // myURL.host; // = 'abc.com' 
-    // myURL.query; // = '?id=255&m=hello' 
-    // myURL.params; // = Object = { id: 255, m: hello } 
-    // myURL.path; // = '/dir/index.html' 
-    // myURL.segments; // = Array = ['dir', 'index.html'] 
-    // myURL.port; // = '8080' 
-    // myURL.protocol; // = 'http' 
-    // myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
     /**
      * 2015-1-13 yc
      * 字符串-url解析
@@ -192,6 +176,24 @@ var funnyFunction = {
             })(o);
         return str.replace(/[\r\n]/g, '');
     },
+    /**
+     * 转换-将日期(字符串)转换为毫秒
+     * @param1 {String}
+     * @return {Number}
+     */
+     convertStringToTime:function(param1){
+        var f = param1.split(' ', 2);
+        var d = (f[0] ? f[0] : '').split('-', 3);
+        var t = (f[1] ? f[1] : '').split(':', 3);
+        return (new Date(
+            parseInt(d[0], 10) || null, (parseInt(d[1], 10) || 1) - 1,
+            parseInt(d[2], 10) || null,
+            parseInt(t[0], 10) || null,
+            parseInt(t[1], 10) || null,
+            parseInt(t[2], 10) || null
+        )).getTime();
+     },
+
     //字符串相关
     string: {
         //根据字符串计算hash数值
@@ -236,38 +238,52 @@ var funnyFunction = {
             return tmp;
         }
     },
-
-    //日期相关
-    date: {
-        //返回两个日期之间的天数差
-        //params:Date,Date
-        diffDay: function(date1, date2) {
-        	var stringToTime= function(){
-        		var f = window.string.split(' ', 2);
-	            var d = (f[0] ? f[0] : '').split('-', 3);
-	            var t = (f[1] ? f[1] : '').split(':', 3);
-	            return (new Date(
-	                parseInt(d[0], 10) || null, (parseInt(d[1], 10) || 1) - 1,
-	                parseInt(d[2], 10) || null,
-	                parseInt(t[0], 10) || null,
-	                parseInt(t[1], 10) || null,
-	                parseInt(t[2], 10) || null
-	            )).getTime();
-        	}
-            var type1 = typeof date1,
-                type2 = typeof date2;
-            if (type1 == 'string')
-                date1 = this.stringToTime(date1);
-            else if (date1.getTime)
-                date1 = date1.getTime();
-            if (type2 == 'string')
-                date2 = this.stringToTime(date2);
-            else if (date2.getTime)
-                date2 = date2.getTime();
-            return (date2 - date1) / (1000 * 60 * 60 * 24);
+    /**
+     * 日期-计算两个日期之间的(时|分|秒|日|周|月|年) 差 
+     * @param1 {Date|String} 
+     * @param2 {Date|String} 
+     * @return {Object}
+     */
+    dateDiff:function(startDate, endDate){
+        if(this.isObjectType("String",startDate))
+        {
+            startDate = new Date(startDate);
         }
+        if(this.isObjectType("String",endDate))
+        {
+            endDate = new Date(endDate);
+        }
+        var _diffDate=endDate-startDate; 
+        //时差
+        var h=Math.floor(_diffDate/3600000); 
+        //实际分差
+        var m=Math.floor((_diffDate-h*3600000)/60000); 
+        //对比分差
+        var actualm=Math.floor(_diffDate/60000); 
+        //实际秒差
+        var s=(_diffDate-h*3600000-m*60000)/1000; 
+        //对比秒差
+        var actuals=_diffDate/1000; 
+        //日差
+        var d = Math.floor(_diffDate/86400000);
+        //周差
+        var w = Math.floor(_diffDate/(86400000*7));
+        //月差
+        var momth = (endDate.getMonth()+1)+((endDate.getFullYear()-startDate.getFullYear())*12)-(startDate.getMonth()+1);
+        //年差
+        var y = endDate.getFullYear()-startDate.getFullYear(); 
+        return {
+            hours:h,
+            minutes:m,
+            actualmintues:actualm,
+            actualseconds:actuals,
+            seconds:s,
+            days:d,
+            weeks:w,
+            months:momth,
+            years:y
+        };
     },
-
     /**
      * 数组-去重
      * @param1 {Array} 
@@ -286,12 +302,6 @@ var funnyFunction = {
         }
         return ret;
     },
-
-    //JSON相关
-    json: {
-        
-    },
-
     //对象相关
     obj: {
         //调用对象所有方法,arguments:过滤方法名

@@ -63,6 +63,14 @@ var funnyContentTmpl = {
 	    "viewCode":['funnyFunction.convertObjectToString({name:"ccw",age:18});'],
 	    "run":['funnyFunction.convertObjectToString({name:\'ccw\',age:18});'],
     },
+    "convertStringToTime":{
+    	"dest":'转换-将日期(字符串)转换为毫秒',
+	    "fullname": 'funnyFunction.convertStringToTime(param1)',
+	    "paramdest": ['param1 {String}'],
+	    "treturn":'{Number}',
+	    "viewCode":['funnyFunction.convertStringToTime("2015-3-31 08:00:00");'],
+	    "run":['funnyFunction.convertStringToTime(\'2015-3-31 08:00:00\');'],
+    },
     "isObjectType":{
     	"dest":'判断-javascript对象类型',
 	    "fullname": 'funnyFunction.isObjectType(param1)',
@@ -78,5 +86,14 @@ var funnyContentTmpl = {
 	    "treturn":'{String}',
 	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]);'],
 	    "run":['funnyFunction.arrayUnique([11,22,11,22]);'],
+    },     
+    "dateDiff":{
+    	"dest":'日期-计算两个日期之间的(时|分|秒|日|周|月|年) 差',
+	    "fullname": 'funnyFunction.dateDiff(param1,param2)',
+	    "paramdest": ['param1 {Date|String} 开始时间','param2 {Date|String} 结束时间'],
+	    "treturn":'{Object} actualmintues 实际分差 actualseconds 实际秒差 其余为对比差',
+	    "viewCode":['funnyFunction.dateDiff(new Date("2015/2/20 20:00:00"),new Date("2015/3/31 20:15:50"));','funnyFunction.dateDiff("2015/2/20 20:00:00","2015/3/31 20:15:50");'],
+	    "run":['funnyFunction.dateDiff(new Date(\'2015/2/20 20:00:00\'),new Date(\'2015/3/31 20:15:50\'));','funnyFunction.dateDiff(\'2015/2/20 20:00:00\',\'2015/3/31 20:15:50\');'],
+	    "showType":['dom','dom']
     }     
 };

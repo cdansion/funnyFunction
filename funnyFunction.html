@@ -40,7 +40,8 @@
                   }
                }
             });
-        });
+           });
+
     </script>
 </head>
 
@@ -59,7 +60,7 @@
             <script id="funnyMenuTmpl" type="text/x-dot-template">
                 {{ for(var objs in it) { }}
                 <li class="pure-menu-item">
-                    <a href="#{{=objs}}" class="pure-menu-link">{{=objs}}</a>
+                    <a href="#{{=objs}}" title="{{=it[objs].dest}}" class="pure-menu-link">{{=objs}}</a>
                 </li> 
                 {{ } }}
             </script>
