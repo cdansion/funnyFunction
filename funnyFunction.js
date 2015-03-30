@@ -107,7 +107,7 @@ var funnyFunction = {
     /**
      * 字符串-获得字符串（中英文）变量的长度
      * @param1 {String}
-     * @param2 {Boolean} 中文是否算1个字节,否则算2个字节 默认:true
+     * @param2 {Boolean} 中文是算2个字节,否算1个字节
      * @return {String}
      */
     stringLen: function(param1,param2) {

@@ -18,7 +18,7 @@ var funnyContentTmpl = {
     "commonAddSymbol":{
     	"dest":'通用-给数字|字符串加上符号',
 	    "fullname": 'funnyFunction.commonAddSymbol(param1,param2,param3)',
-	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 保留的位数 默认:3'],
+	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 从多少位开始加 默认:3'],
 	    "treturn":'{String}',
 	    "viewCode":["funnyFunction.commonAddSymbol(123456789);","funnyFunction.commonAddSymbol(123456789,'#',2);"],
 	    "run":['funnyFunction.commonAddSymbol(123456789);',"funnyFunction.commonAddSymbol(123456789,'#',2);"]
@@ -26,7 +26,7 @@ var funnyContentTmpl = {
     "stringLen":{
     	"dest":'字符串-获得字符串（中英文）变量的长度',
 	    "fullname": 'funnyFunction.stringLen(param1,param2)',
-	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是否算1个字节,否则算2个字节 默认:true'],
+	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是算2个字节,否算1个字节 默认:true'],
 	    "treturn":'{String}',
 	    "viewCode":['funnyFunction.stringLen(\'123456789中文\');','funnyFunction.stringLen(\'123456789中文\',false);'],
 	    "run":['funnyFunction.stringLen(\'123456789中文\');','funnyFunction.stringLen(\'123456789中文\',false);'],
@@ -75,7 +75,7 @@ var funnyContentTmpl = {
     	"dest":'判断-javascript对象类型',
 	    "fullname": 'funnyFunction.isObjectType(param1)',
 	    "paramdest": ['param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....','param2 {Object}',],
-	    "treturn":'{String}',
+	    "treturn":'{Boolean}',
 	    "viewCode":['funnyFunction.isObjectType("Object",{name:"ccw",age:18});','funnyFunction.isObjectType("Array",[1,2,3,4]);','funnyFunction.isObjectType("Date",new Date());'],
 	    "run":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18});','funnyFunction.isObjectType(\'Array\',[1,2,3,4]);','funnyFunction.isObjectType(\'Date\',new Date());'],
     },
