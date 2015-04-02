@@ -10,7 +10,9 @@
     <script src='vendor/jquery-1.11.2.min.js'></script>
     <script src='funnyFunction.js'></script>
     <script src='funnyFunction-tmpl.js'></script>
-    
+    <script src='vendor/highlight.pack.js'></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
     <script type="text/javascript" src="vendor/doT.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -25,23 +27,28 @@
                var runIndex =$this.data('runindex');
                var showType =$("."+run+'showType').eq(runIndex).val();
                var html='';
+               var runCode =$("."+run+'Run').eq(runIndex).val() ;
+               if(showType==='custom')
+               {
+                  eval(runCode);
+               }
+               else
                if(showType===undefined)
                {
-                  alert(eval($("."+run+'Run').eq(runIndex).val()));
+                  alert(eval(runCode));
                }
                else{
                   $this.parent().find('.showType').remove();
                   var runResult =eval($("."+run+'Run').eq(runIndex).val());
-                  if(funnyFunction.isObjectType("Object"),runResult)
+                  if(funnyFunction.isObjectType("Object",runResult))
                   {
                      var obj = funnyFunction.convertObjectToString(runResult);
                      obj = obj.replace(/\,/ig,',\r\n').replace(/\{/ig,'\{\r\n').replace(/\}\w?/ig,'\r\n\}');
-                     $this.before('<div class="showType"><pre><code class="html hljs">'+obj+'</code></pre></div>');
+                     $this.before('<div class="showType"><pre><code class="javascript hljs">'+obj+'</code></pre></div>');
                   }
                }
             });
-           });
-
+        });
     </script>
 </head>
 
@@ -100,30 +107,23 @@
                                 {{ for(var videCode in it[objs][obj]) { }}
                                     <div class="fnExample">
                                         <h3 class="title3">示例</h3>
+                                      
                                         <pre>
-                                            <code class="javascript hljs">
-                                                {{=it[objs][obj][videCode]}}
-                                            </code>
+                                           <code class="javascript hljs">
+                                              {{=it[objs][obj][videCode].replace(/      /ig, '\r\n').replace(/ /ig, '&nbsp;')}}
+                                           </code>
                                         </pre>
+                                        <input type="hidden" class="{{=objs}}Run" value="{{=it[objs][obj][videCode]}}"></input>
                                         <button data-run="{{=objs}}" data-runIndex="{{=videCode}}" class="button-secondary pure-button">运行</button>
                                     </div>
                                 {{ } }} 
                            {{ } }} 
-
 
                            {{if(obj === "showType"){ }}
                                 {{ for(var showtype in it[objs][obj]) { }}
                                      <input type="hidden" class="{{=objs}}showType" value="{{=it[objs][obj][showtype]}}"></input>
                                 {{ } }} 
                            {{ } }}
-
-
-                           {{if(obj === "run"){ }}
-                                {{ for(var run in it[objs][obj]) { }}
-                                     <input type="hidden" class="{{=objs}}Run" value="{{=it[objs][obj][run]}}"></input>
-                                {{ } }} 
-                           {{ } }} 
-
                         {{ } }}
                     </div>
                   {{ } }}
@@ -135,8 +135,8 @@
                 var contentTmpl = doT.template(document.getElementById('funnyContentTmpl').text);
                 $("#content").html(contentTmpl(funnyContentTmpl));
             </script>
+
         </div>
     </div>
 </body>
-
 </html>

@@ -89,3 +89,10 @@ body {
     background: #1f8dd6;
     color: #fff;
 }
+
+.fnExample textarea {
+    width:100%;
+    background:#181a3a;
+    color:#def;
+    height:auto;
+}

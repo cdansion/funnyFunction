@@ -302,31 +302,36 @@ var funnyFunction = {
         }
         return ret;
     },
+
+    /**
+     * 对象-调用方法
+     * @param1 {Object}
+     * @params {String}  过滤的方法名
+     * @return {Array}
+     */
+    objectCallFunction:function(obj){
+        var arg, sum = 0,
+            name = '',
+            fn;
+        for (var fname in obj) {
+            sum = 0;
+            for (var i = 1; i < arguments.length; i++) {
+                arg = arguments[i];
+                if (fname === arg) {
+                    sum++;
+                }
+            }
+            if (sum === 0) {
+                fn = obj[fname];
+                if (typeof fn === 'function') {
+                    fn();
+                }
+            }
+        };
+    },
+
     //对象相关
     obj: {
-        //调用对象所有方法,arguments:过滤方法名
-        //params:Object
-        callFn: function(obj) {
-            var arg, sum = 0,
-                name = '',
-                fn;
-            for (var fname in obj) {
-                sum = 0;
-                for (var i = 1; i < arguments.length; i++) {
-                    arg = arguments[i];
-                    if (fname === arg) {
-                        sum++;
-                    }
-                }
-                if (sum === 0) {
-                    fn = obj[fname];
-                    if (typeof fn === 'function') {
-                        fn();
-                    }
-                }
-            };
-        },
-
         //返回类型
         //params: Object
         type: function(object) {
