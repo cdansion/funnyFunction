@@ -302,6 +302,7 @@ var funnyFunction = {
         }
         return ret;
     },
+   
 
     /**
      * 对象-调用方法
