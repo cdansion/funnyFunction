@@ -105,7 +105,7 @@ var funnyFunction = {
     },
 
     /**
-     * 字符串-获得字符串（中英文）变量的长度
+     * 字符串-获取string(中英文)变量的长度
      * @param1 {String}
      * @param2 {Boolean} 中文是算2个字节,否算1个字节
      * @return {String}
@@ -134,54 +134,61 @@ var funnyFunction = {
     },
 
     /**
-     * 转换-将对象转换为字符串
+     * 转换-object转换为string
      * @param1 {Object}
      * @return {String}
      */ 
-    convertObjectToString:function(o){
-        var
-            str = (function obj2str(o) {
-                var r = [];
-                if (typeof o == "string" || o === null) {
-                    return o;
-                }
-                if (typeof o == "object") {
-                    if (!o.sort) {
-                        r[0] = "{";
-                        for (var i in o) {
-                            r[r.length] = i;
-                            r[r.length] = ":";
-                            if (typeof o[i] == 'object' && o[i].top && o[i].window && o[i].location) {
-                                r[r.length] = "ve";
-                            } else {
-                                r[r.length] = obj2str(o[i]);
-                            }
-                            r[r.length] = ",";
-                        }
-                        if (r.length > 1) r[r.length - 1] = "}";
-                        else r[r.length] = "}";
-                    } else {
-                        r[0] = "[";
-                            // alert(o.length);
-                        for (var i = 0; i < o.length; i++) {
-                            r[r.length] = obj2str(o[i]);
-                            r[r.length] = ",";
-                        }
-                        if (r.length > 1) r[r.length - 1] = "]";
-                        else r[r.length] = "]";
-                    }
-                    return r.join("");
-                }
-                return o.toString();
-            })(o);
-        return str.replace(/[\r\n]/g, '');
+    convertObjectToString:function(obj){
+        var str = '';
+        for (var p in obj) {
+            if (obj.hasOwnProperty(p)) {
+                str += p + ':' + obj[p] + '\n';
+            }
+        }
+        return str;
+        // var
+        //     str = (function obj2str(o) {
+        //         var r = [];
+        //         if (typeof o == "string" || o === null) {
+        //             return o;
+        //         }
+        //         if (typeof o == "object") {
+        //             if (!o.sort) {
+        //                 r[0] = "{";
+        //                 for (var i in o) {
+        //                     r[r.length] = i;
+        //                     r[r.length] = ":";
+        //                     if (typeof o[i] == 'object' && o[i].top && o[i].window && o[i].location) {
+        //                         r[r.length] = "ve";
+        //                     } else {
+        //                         r[r.length] = obj2str(o[i]);
+        //                     }
+        //                     r[r.length] = ",";
+        //                 }
+        //                 if (r.length > 1) r[r.length - 1] = "}";
+        //                 else r[r.length] = "}";
+        //             } else {
+        //                 r[0] = "[";
+        //                     // alert(o.length);
+        //                 for (var i = 0; i < o.length; i++) {
+        //                     r[r.length] = obj2str(o[i]);
+        //                     r[r.length] = ",";
+        //                 }
+        //                 if (r.length > 1) r[r.length - 1] = "]";
+        //                 else r[r.length] = "]";
+        //             }
+        //             return r.join("");
+        //         }
+        //         return o.toString();
+        //     })(o);
+        // return str.replace(/[\r\n]/g, '');
     },
     /**
-     * 转换-将日期(字符串)转换为毫秒
+     * 转换-string(日期)转换为毫秒
      * @param1 {String}
      * @return {Number}
      */
-     convertStringToTime:function(param1){
+    convertStringToTime:function(param1){
         var f = param1.split(' ', 2);
         var d = (f[0] ? f[0] : '').split('-', 3);
         var t = (f[1] ? f[1] : '').split(':', 3);
@@ -192,7 +199,23 @@ var funnyFunction = {
             parseInt(t[1], 10) || null,
             parseInt(t[2], 10) || null
         )).getTime();
-     },
+    },
+    /**
+     * 转换-object(array-like)转为数组
+     * @param1 {array-like object}
+     * @return {Array}
+     */
+    convertObjectToArray:function(arrayLikeObject){
+    	return [].slice.call(arrayLikeObject);
+    },
+    /**
+     * 对象-获得属性数量
+     * @param1 {array-like object}
+     * @return {Array}
+     */
+    objectSize:function(obj){
+        return Object.keys(obj).length;
+    },
 
     //字符串相关
     string: {
@@ -328,31 +351,6 @@ var funnyFunction = {
                     fn();
                 }
             }
-        };
-    },
-
-    //对象相关
-    obj: {
-        //返回类型
-        //params: Object
-        type: function(object) {
-            return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-        },
-
-        //类数组对象转换成数组，如arguments
-        arg2arr: function(args) {
-            return Array.prototype.slice.call(args);
-        },
-
-        //返回数量
-        //params: Object
-        size: function(obj) {
-            var size = 0,
-                key;
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
         }
     },
 
@@ -385,9 +383,6 @@ var funnyFunction = {
             return offset;
         }
     },
-
-    //通用相关
-
 
     //变量相关
     variable: {

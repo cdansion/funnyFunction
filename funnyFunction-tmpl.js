@@ -5,28 +5,28 @@ var funnyContentTmpl = {
 	    "fullname": 'funnyFunction.mathRound(param1,param2)',
 	    "paramdest": ['param1 {Number} 需要四舍五入的数字', 'param2 {Number} 保留的位数'],
 	    "treturn":'{Number}',
-	    "viewCode":["funnyFunction.mathRound(123456789.6666666,2);","funnyFunction.mathRound(123456789.6666666);"],
+	    "viewCode":["funnyFunction.mathRound(123456789.6666666,2); //123456789.67","funnyFunction.mathRound(123456789.6666666); //123456790"],
     },
     "mathAccMul":{
     	"dest":'数字-精确相乘',
 	    "fullname": 'funnyFunction.mathAccMul(param1,param2)',
 	    "paramdest": ['param1 {Number}', 'param1 {Number}'],
 	    "treturn":'{Number}',
-	    "viewCode":["funnyFunction.mathAccMul(365.568,5658.55);"],
+	    "viewCode":["funnyFunction.mathAccMul(365.568,5658.55); //2068584.8064"],
     },
     "commonAddSymbol":{
     	"dest":'通用-给数字|字符串加上符号',
 	    "fullname": 'funnyFunction.commonAddSymbol(param1,param2,param3)',
 	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 从多少位开始加 默认:3'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.commonAddSymbol(123456789);',"funnyFunction.commonAddSymbol(123456789,\'#\',2);"]
+	    "viewCode":['funnyFunction.commonAddSymbol(123456789); //123,456,789',"funnyFunction.commonAddSymbol(123456789,\'#\',2); //1#23#45#67#89"]
     },
     "stringLen":{
-    	"dest":'字符串-获得字符串（中英文）变量的长度',
+    	"dest":'字符串-获取string(中英文)变量的长度',
 	    "fullname": 'funnyFunction.stringLen(param1,param2)',
 	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是算2个字节,否算1个字节 默认:true'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.stringLen(\'123456789中文\');','funnyFunction.stringLen(\'123456789中文\',false);'],
+	    "viewCode":['funnyFunction.stringLen(\'123456789中文\'); //13','funnyFunction.stringLen(\'123456789中文\',false); //11'],
     },
     "stringUrlParam":{
     	"dest":'字符串-获取当前url参数',
@@ -46,39 +46,63 @@ var funnyContentTmpl = {
 	    "showType":['dom']
     },
     "stringUrlFullPath":{
-    	"dest":'字符串-获得当前url完整路口',
+    	"dest":'字符串-获取当前url完整路口',
 	    "fullname": 'funnyFunction.stringUrlFullPath()',
 	    "treturn":'{String}',
 	    "viewCode":["funnyFunction.stringUrlFullPath();"],
 	    "run":["funnyFunction.stringUrlFullPath();"]
     },
     "convertObjectToString":{
-    	"dest":'转换-将对象转换为字符串',
+    	"dest":'转换-object转换为string',
 	    "fullname": 'funnyFunction.convertObjectToString(param1)',
 	    "paramdest": ['param1 {Object}'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.convertObjectToString({name:\'ccw\',age:18});'],
+	    "viewCode":['funnyFunction.convertObjectToString({name:\'ccw\',age:18}); //{name:ccw,age:18}'],
+    },
+     "convertObjectToArray":{
+    	"dest":'转换-object(array-like)转为数组',
+	    "fullname": 'funnyFunction.convertObjectToArray(param1)',
+	    "paramdest": ['param1 {array-like object}'],
+	    "treturn":'{String}',
+	    "viewCode":['funnyFunction.convertObjectToArray({0:\'funny\',1:18,length:2}); //funny,18']
     },
     "convertStringToTime":{
-    	"dest":'转换-将日期(字符串)转换为毫秒',
+    	"dest":'转换-string(日期)转换为毫秒',
 	    "fullname": 'funnyFunction.convertStringToTime(param1)',
 	    "paramdest": ['param1 {String}'],
 	    "treturn":'{Number}',
-	    "viewCode":['funnyFunction.convertStringToTime(\'2015-3-31 08:00:00\');'],
+	    "viewCode":['funnyFunction.convertStringToTime(\'2015-3-31 08:00:00\'); //1427760000000'],
+    },
+    "objectSize":{
+    	"dest":'对象-获取属性数量',
+	    "fullname": 'funnyFunction.objectSize(param1)',
+	    "paramdest": ['param1 {Object}'],
+	    "treturn":'{Number}',
+	    "viewCode":[
+	     "var funny={      " +
+	     '  fn:function(){      '+
+	     '    alert(\'fn1\');      '+
+	     '  },      '+
+	     '  fn2:function(){      '+
+	     '    alert(\'fn2\');      '+
+	     '  }      ' +
+	     '};      ' +
+	     'funnyFunction.objectSize(funny); //2'
+	    ]
     },
     "isObjectType":{
     	"dest":'判断-javascript对象类型',
 	    "fullname": 'funnyFunction.isObjectType(param1)',
 	    "paramdest": ['param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....','param2 {Object}',],
 	    "treturn":'{Boolean}',
-	    "viewCode":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18});','funnyFunction.isObjectType(\'Array\',[1,2,3,4]);','funnyFunction.isObjectType(\'Date\',new Date());'],
+	    "viewCode":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18}); //true','funnyFunction.isObjectType(\'Array\',[1,2,3,4]); //true','funnyFunction.isObjectType(\'Date\',new Date()); //true'],
     },
     "arrayUnique":{
     	"dest":'数组-去重',
 	    "fullname": 'funnyFunction.arrayUnique(param1)',
 	    "paramdest": ['param1 {Array}'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]);'],
+	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]); //11,22'],
     },     
     "dateDiff":{
     	"dest":'日期-计算两个日期之间的(时|分|秒|日|周|月|年) 差',
@@ -101,7 +125,7 @@ var funnyContentTmpl = {
 	     '    alert(\'fn2\');      '+
 	     '  }      ' +
 	     '};      ' +
-	     'funnyFunction.objectCallFunction(funny);',
+	     'funnyFunction.objectCallFunction(funny); //fn1 fn2',
 	     "var funny={      " +
 	     '  fn:function(){      '+
 	     '    alert(\'fn1\');      '+
@@ -113,7 +137,7 @@ var funnyContentTmpl = {
 	     '    alert(\'fn3\');      '+
 	     '  }      ' +
 	     '};      ' +
-	     'funnyFunction.objectCallFunction(funny,\'fn2\',\'fn3\');',
+	     'funnyFunction.objectCallFunction(funny,\'fn2\',\'fn3\'); //fn1',
 	    ],
 	    "showType":['custom','custom']
     }      

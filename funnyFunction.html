@@ -47,11 +47,16 @@
                   }
                }
             });
+            
+            $("#fnCount span").text($('.pure-menu-item').length);
         });
     </script>
 </head>
 
 <body>
+    <div id="fnCount">
+      <h2>Methods :<span></span></h2>
+    </div>
     <div id="layout">
         <div id="menu">
             <div class="pure-menu">
