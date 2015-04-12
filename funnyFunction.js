@@ -353,53 +353,6 @@ var funnyFunction = {
             }
         }
     },
-
-    //文档对象模型相关
-    dom: {
-
-        //返回当前window大小对象
-        windowSize: function() {
-            var doch = window.innerHeight || document.documentElement.offsetHeight || document.body.clientHieght;
-            var docw = window.innerWidth || document.documentElement.offsetWidth || document.body.clientWidth;
-            var docST = document.documentElement.scrollTop || document.body.scrollTop;
-            var docSL = document.documentElement.scrollLeft || document.body.scrollLeft;
-            return {
-                dw: docw,
-                dh: doch,
-                st: docST,
-                sl: docSL
-            };
-        },
-
-        //[jquery]获取element的实际大小及位置
-        //params: element
-        elementSize: function(element) {
-            if (!$(element).length) return;
-            var offset = $(element).offset();
-            offset.bottom = offset.top + $(element).height();
-            offset.right = offset.left + $(element).width();
-            offset.width = $(element).width();
-            offset.height = $(element).height();
-            return offset;
-        }
-    },
-
-    //变量相关
-    variable: {
-        //是否为空
-        isEmpty: function(a) {
-            return void 0 == a || "-" == a || "" == a
-        }
-    },
-
-    //样式相关
-    style: {
-        //返回当前元素style
-        //params: element
-        get: function(element) {
-            return element.currentStyle || document.defaultView.getComputedStyle(element, null);
-        }
-    },
     /**
      * 判断-javascript对象类型
      * @param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....
