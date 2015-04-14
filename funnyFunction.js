@@ -49,6 +49,26 @@ var funnyFunction = {
         return num;
     },
     /**
+     * 通用-倒计时
+     * @param1 {String} 开始时间
+     * @param2 {String} 结束时间
+     * @param3 {Function} 
+     * @return {String}
+     */
+    commonCountDown: function (startDate, endDate, callback) {
+//        var timeDistance = funnyFunction.dateDiff(new Date(), endDate);
+//        if (timeDistance.seconds >= 0) {
+////            if (callback) {
+////                callback();
+//            //            }
+//            cdtimeout = setTimeout(funnyFunction.commonCountDown(startDate, endDate, callback), 1000);
+//        } else {
+//            //活动结束
+//            if (typeof cdtimeout != "undefined")
+//                clearTimeout(cdtimeout);
+//        }
+    },
+	/**
      * 字符串-获取当前url参数
      * @param1 {String}
      * @return {String}
@@ -146,42 +166,6 @@ var funnyFunction = {
             }
         }
         return str;
-        // var
-        //     str = (function obj2str(o) {
-        //         var r = [];
-        //         if (typeof o == "string" || o === null) {
-        //             return o;
-        //         }
-        //         if (typeof o == "object") {
-        //             if (!o.sort) {
-        //                 r[0] = "{";
-        //                 for (var i in o) {
-        //                     r[r.length] = i;
-        //                     r[r.length] = ":";
-        //                     if (typeof o[i] == 'object' && o[i].top && o[i].window && o[i].location) {
-        //                         r[r.length] = "ve";
-        //                     } else {
-        //                         r[r.length] = obj2str(o[i]);
-        //                     }
-        //                     r[r.length] = ",";
-        //                 }
-        //                 if (r.length > 1) r[r.length - 1] = "}";
-        //                 else r[r.length] = "}";
-        //             } else {
-        //                 r[0] = "[";
-        //                     // alert(o.length);
-        //                 for (var i = 0; i < o.length; i++) {
-        //                     r[r.length] = obj2str(o[i]);
-        //                     r[r.length] = ",";
-        //                 }
-        //                 if (r.length > 1) r[r.length - 1] = "]";
-        //                 else r[r.length] = "]";
-        //             }
-        //             return r.join("");
-        //         }
-        //         return o.toString();
-        //     })(o);
-        // return str.replace(/[\r\n]/g, '');
     },
     /**
      * 转换-string(日期)转换为毫秒
@@ -215,51 +199,6 @@ var funnyFunction = {
      */
     objectSize:function(obj){
         return Object.keys(obj).length;
-    },
-
-    //字符串相关
-    string: {
-        //根据字符串计算hash数值
-        hash: function(a) {
-            var b, c = 1,
-                d = 0;
-            if (!this.IsEmpty(a))
-                for (c = 0, b = a.length - 1; b >= 0; b--)
-                    d = a.charCodeAt(b), c = (c << 6 & 268435455) + d + (d << 14), d = 266338304 & c, c = 0 != d ? c ^ d >> 21 : c;
-            return c;
-        },
-
-        //截取定长字符串 包含中文处理  
-        //(串,长度,增加...)  
-        subString: function(str, len, hasDot) {
-            var newLength = 0;
-            var newStr = "";
-            var chineseRegex = /[^\x00-\xff]/g;
-            var singleChar = "";
-            var strLength = str.replace(chineseRegex, "**").length;
-            for (var i = 0; i < strLength; i++) {
-                singleChar = str.charAt(i).toString();
-                if (singleChar.match(chineseRegex) != null) newLength += 2;
-                else newLength++;
-
-                if (newLength > len) break;
-                newStr += singleChar;
-            }
-            if (hasDot && strLength > len) newStr += "...";
-            return newStr;
-        },
-
-        /*
-         *json对象字符串替换
-         * rpl('<div>{{data.name}}</div>',{name:"chenchangwen"})
-         */
-        rpl: function(tmp, data) {
-            if (!ve) return false;
-            tmp = tmp.replace(/\{\{(.*?)\}\}/gi, function(a, b) {
-                return eval(b);
-            });
-            return tmp;
-        }
     },
     /**
      * 日期-计算两个日期之间的(时|分|秒|日|周|月|年) 差 
@@ -325,12 +264,10 @@ var funnyFunction = {
         }
         return ret;
     },
-   
-
     /**
-     * 对象-调用方法
+     * 对象-调用对象自身函数
      * @param1 {Object}
-     * @params {String}  过滤的方法名
+     * @params {arguments}  过滤的方法名
      * @return {Array}
      */
     objectCallFunction:function(obj){

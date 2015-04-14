@@ -19,7 +19,25 @@ var funnyContentTmpl = {
 	    "fullname": 'funnyFunction.commonAddSymbol(param1,param2,param3)',
 	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 从多少位开始加 默认:3'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.commonAddSymbol(123456789); //123,456,789',"funnyFunction.commonAddSymbol(123456789,\'#\',2); //1#23#45#67#89"]
+	    "viewCode":['funnyFunction.commonAddSymbol(123456789);"']
+    },
+    /**
+     * 通用-倒计时
+     * @param1 {String} 开始时间
+     * @param2 {String} 结束时间
+     * @param3 {Function} 
+     * @return {String}
+     */
+//    commonCountDown: function(startDate,endDate,callback) {
+    "commonCountDown": {
+        "dest": '通用-倒计时',
+        "fullname": 'funnyFunction.commonCountDown(param1,param2,param3)',
+        "paramdest": ['param1 {String} 开始时间', 'param2 {String} 结束时间', 'param3 {Number} 从多少位开始加 默认:3'],
+        "treturn": '{String}',
+        "viewCode": [
+        'funnyFunction.commonCountDown(new Date(),\'2015-04-17\');'
+        ],
+        "showType": ['custom', 'custom']
     },
     "stringLen":{
     	"dest":'字符串-获取string(中英文)变量的长度',
@@ -95,14 +113,14 @@ var funnyContentTmpl = {
 	    "fullname": 'funnyFunction.isObjectType(param1)',
 	    "paramdest": ['param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....','param2 {Object}',],
 	    "treturn":'{Boolean}',
-	    "viewCode":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18}); //true','funnyFunction.isObjectType(\'Array\',[1,2,3,4]); //true','funnyFunction.isObjectType(\'Date\',new Date()); //true'],
+	    "viewCode":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18}); //true','funnyFunction.isObjectType(\'Array\',[1,2,3,4]); //true','funnyFunction.isObjectType(\'Date\',new Date()); //true']
     },
     "arrayUnique":{
     	"dest":'数组-去重',
 	    "fullname": 'funnyFunction.arrayUnique(param1)',
 	    "paramdest": ['param1 {Array}'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]); //11,22'],
+	    "viewCode":['funnyFunction.arrayUnique([11,22,11,22]); //11,22']
     },     
     "dateDiff":{
     	"dest":'日期-计算两个日期之间的(时|分|秒|日|周|月|年) 差',
@@ -113,9 +131,9 @@ var funnyContentTmpl = {
 	    "showType":['dom','dom']
     },
     "objectCallFunction":{
-    	"dest":'对象-调用方法',
-	    "fullname": 'funnyFunction.objectCallFunction(param1,params)',
-	    "paramdest": ['param1 {Object}','params {String}  过滤的方法名'],
+        "dest": '对象-调用对象自身函数',
+        "fullname": 'funnyFunction.objectCallFunction(param1,arguments)',
+	    "paramdest": ['param1 {Object}','arguments 过滤的方法名'],
 	    "viewCode":[
 	     "var funny={      " +
 	     '  fn:function(){      '+
