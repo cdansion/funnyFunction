@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+   
+</head>
+<body>
+    <div id="hour">
+
+    </div>
+<div id="minute">
+
+</div>
+<div id="second">
+
+</div>
+<script>
+    function countDown(startDate, timeSeconds, onCounted, onOverTime) {
+        var distance = (timeSeconds * 1000) -startDate ;
+        console.log(distance);
+        var day, hour, minute, second, totalhour;
+        if (distance >= 0) {
+            //相减的差数换算成天数
+            day = Math.floor(distance / 86400000);
+            distance -= day * 86400000;
+            //相减的差数换算成小时
+            hour = Math.floor(distance / 3600000);
+            distance -= hour * 3600000;
+            //相减的差数换算成分钟
+            minute = Math.floor(distance / 60000);
+            distance -= minute * 60000;
+            //相减的差数换算成秒数
+            second = Math.floor(distance / 1000); 
+            if (hour < 10)
+                hour = "0" + hour;
+            //判断分钟小于10时，前面加0进行占位
+            if (minute < 10)
+                minute = "0" + minute;
+            //判断秒数小于10时，前面加0进行占位
+            if (second < 10)
+                second = "0" + second;
+            //转换后:最大小时
+            totalhour = parseInt(hour) + (day * 24);
+            var timeobj = {
+                hours: hour,
+                minutes: minute,
+                seconds: second,
+                totalhours: totalhour,
+                days: day
+            };
+            if (onCounted) {
+                onCounted(timeobj);
+            }
+            funnyCountDown = setTimeout(function () {
+                if (onCounted) {
+                    countDown(startDate, timeSeconds, onCounted);
+                } else {
+                    countDown(startDate, timeSeconds);
+                }
+            }, 1000);
+            timeSeconds -= 1;
+        } else {
+            if (typeof funnyCountDown != "undefined") {
+                clearTimeout(funnyCountDown);
+                if (onOverTime) {
+                    onOverTime();
+                }
+            }
+        }
+    }
+
+//    countDown(new Date('2015/4/17 23:11:11'), new Date().getTime() / 1000, function (date) {
+//        document.getElementById('hour').innerHTML = date.hours;
+//        document.getElementById('minute').innerHTML = date.minutes;
+//        document.getElementById('second').innerHTML = date.seconds;
+    //    });
+    countDown(
+        new Date('2015/4/22'),
+        new Date('2015/4/25').getTime() / 1000,
+        function (date) {
+            document.getElementById('hour').innerHTML = date.hours;
+            document.getElementById('minute').innerHTML = date.minutes;
+            document.getElementById('second').innerHTML = date.seconds;
+        });
+ 
+</script>
+
+</body>
+</html>

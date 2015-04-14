@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -114,15 +114,19 @@
                                       
                                         <pre>
                                            <code class="javascript hljs">
-                                              {{=it[objs][obj][videCode].replace(/      /ig, '\r\n').replace(/ /ig, '&nbsp;')}}
+                                              {{=it[objs][obj][videCode].replace(/@/ig, '\r\n')}}
                                            </code>
                                         </pre>
-                                        <input type="hidden" class="{{=objs}}Run" value="{{=it[objs][obj][videCode]}}"></input>
+                                        <input type="hidden" class="{{=objs}}Run" value="{{=it[objs][obj][videCode].replace(/@/ig, '\r\n')}}"></input>
                                         <button data-run="{{=objs}}" data-runIndex="{{=videCode}}" class="button-secondary pure-button">运行</button>
                                     </div>
                                 {{ } }} 
                            {{ } }} 
-
+                           {{if(obj === "html"){ }}
+                                {{ for(var html in it[objs][obj]) { }}
+                                     {{=it[objs][obj][html]}}
+                                {{ } }} 
+                           {{ } }}
                            {{if(obj === "showType"){ }}
                                 {{ for(var showtype in it[objs][obj]) { }}
                                      <input type="hidden" class="{{=objs}}showType" value="{{=it[objs][obj][showtype]}}"></input>

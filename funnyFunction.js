@@ -50,23 +50,63 @@ var funnyFunction = {
     },
     /**
      * 通用-倒计时
-     * @param1 {String} 开始时间
-     * @param2 {String} 结束时间
-     * @param3 {Function} 
-     * @return {String}
+     * @param1 {Date} 开始时间
+     * @param2 {Number} 秒
+     * @param3 {Function} 当次计算完
+     * @param3 {Function} 当次超时完
      */
-    commonCountDown: function (startDate, endDate, callback) {
-//        var timeDistance = funnyFunction.dateDiff(new Date(), endDate);
-//        if (timeDistance.seconds >= 0) {
-////            if (callback) {
-////                callback();
-//            //            }
-//            cdtimeout = setTimeout(funnyFunction.commonCountDown(startDate, endDate, callback), 1000);
-//        } else {
-//            //活动结束
-//            if (typeof cdtimeout != "undefined")
-//                clearTimeout(cdtimeout);
-//        }
+    commonCountDown: function (startDate, timeSeconds, onCounted, onOverTime) {
+        var distance = (timeSeconds * 1000) - startDate;
+        var day, hour, minute, second, totalhour;
+        if (distance >= 0) {
+            //相减的差数换算成天数
+            day = Math.floor(distance / 86400000);
+            distance -= day * 86400000;
+            //相减的差数换算成小时
+            hour = Math.floor(distance / 3600000);
+            distance -= hour * 3600000;
+            //相减的差数换算成分钟
+            minute = Math.floor(distance / 60000);
+            distance -= minute * 60000;
+            //相减的差数换算成秒数
+            second = Math.floor(distance / 1000);
+            if (hour < 10)
+                hour = "0" + hour;
+            //判断分钟小于10时，前面加0进行占位
+            if (minute < 10)
+                minute = "0" + minute;
+            //判断秒数小于10时，前面加0进行占位
+            if (second < 10)
+                second = "0" + second;
+            //转换后:最大小时
+            totalhour = parseInt(hour) + (day * 24);
+            var timeobj = {
+                hours: hour,
+                minutes: minute,
+                seconds: second,
+                totalhours: totalhour,
+                days: day
+            };
+            if (onCounted) {
+                onCounted(timeobj);
+            }
+            var that = this;
+            funnyCountDown = setTimeout(function () {
+                if (onCounted) {
+                    that.commonCountDown(startDate, timeSeconds, onCounted);
+                } else {
+                    that.commonCountDown(startDate, timeSeconds);
+                }
+            }, 1000);
+            timeSeconds -= 1;
+        } else {
+            if (typeof funnyCountDown != "undefined") {
+                clearTimeout(funnyCountDown);
+                if (onOverTime) {
+                    onOverTime();
+                }
+            }
+        }
     },
 	/**
      * 字符串-获取当前url参数

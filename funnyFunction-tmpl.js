@@ -5,14 +5,14 @@ var funnyContentTmpl = {
 	    "fullname": 'funnyFunction.mathRound(param1,param2)',
 	    "paramdest": ['param1 {Number} 需要四舍五入的数字', 'param2 {Number} 保留的位数'],
 	    "treturn":'{Number}',
-	    "viewCode":["funnyFunction.mathRound(123456789.6666666,2); //123456789.67","funnyFunction.mathRound(123456789.6666666); //123456790"],
+	    "viewCode":["funnyFunction.mathRound(123456789.6666666,2); //123456789.67","funnyFunction.mathRound(123456789.6666666); //123456790"]
     },
     "mathAccMul":{
     	"dest":'数字-精确相乘',
 	    "fullname": 'funnyFunction.mathAccMul(param1,param2)',
 	    "paramdest": ['param1 {Number}', 'param1 {Number}'],
 	    "treturn":'{Number}',
-	    "viewCode":["funnyFunction.mathAccMul(365.568,5658.55); //2068584.8064"],
+	    "viewCode":["funnyFunction.mathAccMul(365.568,5658.55); //2068584.8064"]
     },
     "commonAddSymbol":{
     	"dest":'通用-给数字|字符串加上符号',
@@ -21,30 +21,40 @@ var funnyContentTmpl = {
 	    "treturn":'{String}',
 	    "viewCode":['funnyFunction.commonAddSymbol(123456789);"']
     },
-    /**
-     * 通用-倒计时
-     * @param1 {String} 开始时间
-     * @param2 {String} 结束时间
-     * @param3 {Function} 
-     * @return {String}
-     */
-//    commonCountDown: function(startDate,endDate,callback) {
+
+    
     "commonCountDown": {
         "dest": '通用-倒计时',
-        "fullname": 'funnyFunction.commonCountDown(param1,param2,param3)',
-        "paramdest": ['param1 {String} 开始时间', 'param2 {String} 结束时间', 'param3 {Number} 从多少位开始加 默认:3'],
-        "treturn": '{String}',
+        "fullname": 'funnyFunction.commonCountDown(startDate,timeSeconds,onCounted,onOverTime)',
+        "paramdest": ['startDate {Date} 开始时间', 'timeSeconds {Number} 秒', 'onCounted {Function} 当次计算完回调函数 onCounted(date) date为倒计时传入的对象', 'onOverTime {Function} 当次超时完回调函数 onOverTime()'],
         "viewCode": [
-        'funnyFunction.commonCountDown(new Date(),\'2015-04-17\');'
+        'funnyFunction.commonCountDown(@' +
+        '    new Date(\'2015/4/15 23:10:15\'),@' +
+        '    new Date(\'2015/4/17\').getTime()/1000,@' +
+        '    function(date){@' +
+        '       // date为返回的对象@' +
+        '       // var timeobj = {@'+
+        '       //     hours: hour,@'+
+        '       //     minutes: minute,@'+
+        '       //     seconds: second,@'+
+        '       //     totalhours: totalhour,@'+
+        '       //     days: day@'+
+        '       //};@'+
+        '       document.getElementById(\'hour\').innerHTML = date.hours;@' +
+        '       document.getElementById(\'minute\').innerHTML = date.minutes;@' +
+        '       document.getElementById(\'second\').innerHTML = date.seconds;@' +
+        '    }@' +
+        ');'
         ],
-        "showType": ['custom', 'custom']
+        "html": ["<div class='fuunyCountDown'><span id='hour'></span> <span id='minute'> </span> <span id='second'></span></div>"],
+        "showType": ['custom']
     },
     "stringLen":{
     	"dest":'字符串-获取string(中英文)变量的长度',
 	    "fullname": 'funnyFunction.stringLen(param1,param2)',
 	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是算2个字节,否算1个字节 默认:true'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.stringLen(\'123456789中文\'); //13','funnyFunction.stringLen(\'123456789中文\',false); //11'],
+	    "viewCode":['funnyFunction.stringLen(\'123456789中文\'); //13','funnyFunction.stringLen(\'123456789中文\',false); //11']
     },
     "stringUrlParam":{
     	"dest":'字符串-获取当前url参数',
@@ -97,14 +107,14 @@ var funnyContentTmpl = {
 	    "paramdest": ['param1 {Object}'],
 	    "treturn":'{Number}',
 	    "viewCode":[
-	     "var funny={      " +
-	     '  fn:function(){      '+
-	     '    alert(\'fn1\');      '+
-	     '  },      '+
-	     '  fn2:function(){      '+
-	     '    alert(\'fn2\');      '+
-	     '  }      ' +
-	     '};      ' +
+	     "var funny={@" +
+	     '  fn:function(){@'+
+	     '    alert(\'fn1\');@'+
+	     '  },@'+
+	     '  fn2:function(){@'+
+	     '    alert(\'fn2\');@'+
+	     '  }@' +
+	     '};@' +
 	     'funnyFunction.objectSize(funny); //2'
 	    ]
     },
@@ -135,26 +145,26 @@ var funnyContentTmpl = {
         "fullname": 'funnyFunction.objectCallFunction(param1,arguments)',
 	    "paramdest": ['param1 {Object}','arguments 过滤的方法名'],
 	    "viewCode":[
-	     "var funny={      " +
-	     '  fn:function(){      '+
-	     '    alert(\'fn1\');      '+
-	     '  },      '+
-	     '  fn2:function(){      '+
-	     '    alert(\'fn2\');      '+
-	     '  }      ' +
-	     '};      ' +
+	     "var funny={@" +
+	     '  fn:function(){@'+
+	     '    alert(\'fn1\');@'+
+	     '  },@'+
+	     '  fn2:function(){@'+
+	     '    alert(\'fn2\');@'+
+	     '  }@' +
+	     '};@' +
 	     'funnyFunction.objectCallFunction(funny); //fn1 fn2',
-	     "var funny={      " +
-	     '  fn:function(){      '+
-	     '    alert(\'fn1\');      '+
-	     '  },      '+
-	     '  fn2:function(){      '+
-	     '    alert(\'fn2\');      '+
-	     '  },      ' +
-	     '  fn3:function(){      '+
-	     '    alert(\'fn3\');      '+
-	     '  }      ' +
-	     '};      ' +
+	     "var funny={@" +
+	     '  fn:function(){@'+
+	     '    alert(\'fn1\');@'+
+	     '  },@'+
+	     '  fn2:function(){@'+
+	     '    alert(\'fn2\');@'+
+	     '  },@' +
+	     '  fn3:function(){@'+
+	     '    alert(\'fn3\');@'+
+	     '  }@' +
+	     '};@' +
 	     'funnyFunction.objectCallFunction(funny,\'fn2\',\'fn3\'); //fn1',
 	    ],
 	    "showType":['custom','custom']
