@@ -41,7 +41,7 @@ body {
     margin-right: auto;
     padding-left: 1em;
     padding-right: 1em;
-    max-width: 850px;
+    max-width: 960px;
 }
 
 .fnwrap {
@@ -106,4 +106,9 @@ body {
 .fuunyCountDown {
     font-size: 25px;
     color: #ff0000;
+}
+
+.fullname{
+    color: blue;
+    font-weight: 600;
 }

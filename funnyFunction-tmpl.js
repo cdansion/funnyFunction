@@ -2,8 +2,8 @@
 var funnyContentTmpl = {
     "mathRound":{
     	"dest":'数字-四舍五入',
-	    "fullname": 'funnyFunction.mathRound(param1,param2)',
-	    "paramdest": ['param1 {Number} 需要四舍五入的数字', 'param2 {Number} 保留的位数'],
+	    "fullname": 'funnyFunction.mathRound(param1[,param2])',
+	    "paramdest": ['param1 {Number} 需要四舍五入的数字', 'param2 {Number} 保留的位数 默认:0'],
 	    "treturn":'{Number}',
 	    "viewCode":["funnyFunction.mathRound(123456789.6666666,2); //123456789.67","funnyFunction.mathRound(123456789.6666666); //123456790"]
     },
@@ -16,29 +16,29 @@ var funnyContentTmpl = {
     },
     "commonAddSymbol":{
     	"dest":'通用-给数字|字符串加上符号',
-	    "fullname": 'funnyFunction.commonAddSymbol(param1,param2,param3)',
+	    "fullname": 'funnyFunction.commonAddSymbol(param1[,param2,param3])',
 	    "paramdest": ['param1 {Number|String} 数字|字符串', 'param2 {Number} 符号 默认:","','param3 {Number} 从多少位开始加 默认:3'],
 	    "treturn":'{String}',
-	    "viewCode":['funnyFunction.commonAddSymbol(123456789);"']
+	    "viewCode":['funnyFunction.commonAddSymbol(123456789);']
     },
 
     
     "commonCountDown": {
         "dest": '通用-倒计时',
-        "fullname": 'funnyFunction.commonCountDown(startDate,timeSeconds,onCounted,onOverTime)',
-        "paramdest": ['startDate {Date} 开始时间', 'timeSeconds {Number} 秒', 'onCounted {Function} 当次计算完回调函数 onCounted(date) date为倒计时传入的对象', 'onOverTime {Function} 当次超时完回调函数 onOverTime()'],
+        "fullname": 'funnyFunction.commonCountDown(startDate,timeSeconds,[,onCounted,onOverTime])',
+        "paramdest": ['startDate {Date} 开始时间', 'timeSeconds {Number} 结束时间(应该是该时间的秒)', 'onCounted {Function} 当次计算完回调函数 onCounted(date) date为倒计时传入的对象', 'onOverTime {Function} 当次超时完回调函数 onOverTime()'],
         "viewCode": [
         'funnyFunction.commonCountDown(@' +
         '    new Date(\'2015/4/15 23:10:15\'),@' +
         '    new Date(\'2015/4/17\').getTime()/1000,@' +
         '    function(date){@' +
-        '       // date为返回的对象@' +
-        '       // var timeobj = {@'+
-        '       //     hours: hour,@'+
-        '       //     minutes: minute,@'+
-        '       //     seconds: second,@'+
-        '       //     totalhours: totalhour,@'+
-        '       //     days: day@'+
+        '       //date为返回的对象@' +
+        '       //var timeobj = {@'+
+        '       //    hours,@'+
+        '       //    minutes,@'+
+        '       //    seconds,@'+
+        '       //    totalhours,@'+
+        '       //    days@'+
         '       //};@'+
         '       document.getElementById(\'hour\').innerHTML = date.hours;@' +
         '       document.getElementById(\'minute\').innerHTML = date.minutes;@' +
@@ -51,7 +51,7 @@ var funnyContentTmpl = {
     },
     "stringLen":{
     	"dest":'字符串-获取string(中英文)变量的长度',
-	    "fullname": 'funnyFunction.stringLen(param1,param2)',
+	    "fullname": 'funnyFunction.stringLen(param1[,param2])',
 	    "paramdest": ['param1 {String}','param2 {Boolean} 中文是算2个字节,否算1个字节 默认:true'],
 	    "treturn":'{String}',
 	    "viewCode":['funnyFunction.stringLen(\'123456789中文\'); //13','funnyFunction.stringLen(\'123456789中文\',false); //11']
@@ -121,9 +121,11 @@ var funnyContentTmpl = {
     "isObjectType":{
     	"dest":'判断-javascript对象类型',
 	    "fullname": 'funnyFunction.isObjectType(param1)',
-	    "paramdest": ['param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....','param2 {Object}',],
+	    "paramdest": ['param1 {Array|Boolean|Date|Math|Number|String|RegExp .....}','param2 {Object}',],
 	    "treturn":'{Boolean}',
-	    "viewCode":['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18}); //true','funnyFunction.isObjectType(\'Array\',[1,2,3,4]); //true','funnyFunction.isObjectType(\'Date\',new Date()); //true']
+	    "viewCode": ['funnyFunction.isObjectType(\'Object\',{name:\'ccw\',age:18}); //true', 'funnyFunction.isObjectType(\'Array\',\'\'); //false',
+            'funnyFunction.isObjectType(\'Function\',function(){@' +
+            ' }); //true']
     },
     "arrayUnique":{
     	"dest":'数组-去重',
@@ -142,8 +144,8 @@ var funnyContentTmpl = {
     },
     "objectCallFunction":{
         "dest": '对象-调用对象自身函数',
-        "fullname": 'funnyFunction.objectCallFunction(param1,arguments)',
-	    "paramdest": ['param1 {Object}','arguments 过滤的方法名'],
+        "fullname": 'funnyFunction.objectCallFunction(param1[,arguments])',
+	    "paramdest": ['param1 {Object}','arguments 过滤的方法名(字符串,号分割)'],
 	    "viewCode":[
 	     "var funny={@" +
 	     '  fn:function(){@'+

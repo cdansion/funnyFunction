@@ -2,7 +2,7 @@ var funnyFunction = {
 	/**
 	 * 数字-四舍五入
 	 * @param1 {Number} 需要四舍五入的数字
-	 * @param2 {Number} 保留的位数
+	 * @param2 {Number} 保留的位数 默认:0
 	 * @return {Number}
 	 */
 	mathRound:function(param1,param2){
@@ -12,8 +12,8 @@ var funnyFunction = {
 	},
     /**
      * 数字-精确相乘
-     * @param1 {Number} 数字
-     * @param2 {Number} 数字
+     * @param1 {Number}
+     * @param2 {Number}
      * @return {Number}
      */
     mathAccMul:function(param1,param2){
@@ -51,7 +51,7 @@ var funnyFunction = {
     /**
      * 通用-倒计时
      * @param1 {Date} 开始时间
-     * @param2 {Number} 秒
+     * @param2 {Number} 结束时间(应该是该时间的秒)
      * @param3 {Function} 当次计算完
      * @param3 {Function} 当次超时完
      */
@@ -332,7 +332,7 @@ var funnyFunction = {
     },
     /**
      * 判断-javascript对象类型
-     * @param1 {javascript对象类型} Array|Boolean|Date|Math|Number|String|RegExp .....
+     * @param1 {Array|Boolean|Date|Math|Number|String|RegExp .....}
      * @param2 {Object}
      * @return {Boolean}
      */
